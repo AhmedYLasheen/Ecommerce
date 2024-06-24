@@ -1,4 +1,5 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface Product {
   id: number;
@@ -30,13 +31,18 @@ const Cart: React.FC = () => {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
+  const navigate = useNavigate();
+  const goToProduct = () => {
+    navigate("/product");
+  };
+
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
   return (
     <div>
-      <button>
+      <button onClick={goToProduct}>
         {" "}
         <h4 className="text-center font-bold ml-4 mt-1 "> Back to product</h4>
       </button>
@@ -49,19 +55,20 @@ const Cart: React.FC = () => {
             <div
               className="my-6"
               key={product.id}
-              style={{ position: "relative", height: "35vh" }}
+              style={{ position: "relative", height: "45vh" }}
             >
               <div className="">
                 <img src={product.image} alt={product.title} width="100" />
               </div>
               <h2>{product.title}</h2>
-              <p>Price: ${product.price * product.quantity}</p>
+              <p>Price : ${product.quantity>=1?product.price * product.quantity:product.price}</p>
 
               <label>
-                Quantity:
+                Quantity :
                 <input
+                className="  rounded-md text-center"
                   type="number"
-                  value={product.quantity}
+                  value={product.quantity?product.quantity:1}
                   min="1"
                   onChange={(e) =>
                     handleQuantityChange(product.id, parseInt(e.target.value))

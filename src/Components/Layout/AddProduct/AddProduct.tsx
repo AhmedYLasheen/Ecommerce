@@ -42,50 +42,55 @@ const AddProduct: React.FC = () => {
     };
 
     return (
-        <div>
-            <h1>Add Product</h1>
+        <div className='m-20'>
+            <h1 className='my-16'>Add Product</h1>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label>Title:</label>
+                    <label>Title : </label>
                     <input 
+                    className="w-full my-6  border-2 rounded-md"
                         type="text" 
                         value={title} 
                         onChange={(e) => setTitle(e.target.value)} 
                     />
                 </div>
                 <div>
-                    <label>Price:</label>
+                    <label>Price : </label>
                     <input 
+                    className="w-full my-6  border-2 rounded-md"
                         type="text" 
                         value={price} 
                         onChange={(e) => setPrice(e.target.value)} 
                     />
                 </div>
                 <div>
-                    <label>Description:</label>
+                    <label>Description : </label>
                     <input 
+                    className="w-full my-6  border-2 rounded-md"
                         type="text" 
                         value={description} 
                         onChange={(e) => setDescription(e.target.value)} 
                     />
                 </div>
                 <div>
-                    <label>Image URL:</label>
+                    <label>Image URL : </label>
                     <input 
+                    className="w-full my-6  border-2 rounded-md"
                         type="text" 
                         value={image} 
                         onChange={(e) => setImage(e.target.value)} 
                     />
                 </div>
                 <div>
-                    <label>Category:</label>
+                    <label>Category : </label>
                     <input 
+                    className="w-full my-6 px-40 border-2 rounded-md"
                         type="text" 
                         value={category} 
                         onChange={(e) => setCategory(e.target.value)} 
                     />
                 </div>
-                <button type="submit">Add Product</button>
+                <button className="mt-3 flex rounded-md border border-transparent bg-indigo-500 px-2 py-1 text-base font-medium text-white hover:bg-indigo-400" type="submit">Submit</button>
             </form>
         </div>
     );

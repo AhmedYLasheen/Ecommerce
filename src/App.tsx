@@ -18,6 +18,10 @@ function App() {
           element: <Home/>,
         },
         {
+          path: "product",
+          element: <Home/>,
+        },
+        {
           path: "cart",
           element: <Cart />,
         },
