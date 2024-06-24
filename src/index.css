@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+.cartBadge{
+  position: absolute;
+  top: -16px;
+    right: -8px;
+}
