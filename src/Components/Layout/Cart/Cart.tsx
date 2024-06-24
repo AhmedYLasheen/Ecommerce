@@ -13,7 +13,6 @@ interface Product {
 const Cart: React.FC = () => {
   const [cart, setCart] = useState<Product[]>(() => {
     const savedCart = localStorage.getItem("cart");
-    // يسشيس
     return savedCart ? JSON.parse(savedCart) : [];
   });
 
