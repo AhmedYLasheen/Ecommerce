@@ -1,6 +1,6 @@
-import axios from 'axios';
-import React, { ChangeEvent, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import axios from "axios";
+import React, { ChangeEvent, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface Product {
   id: number;
@@ -13,19 +13,19 @@ interface Product {
 
 const Home: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [category, setCategory] = useState<string>('');
-  const [search, setSearch] = useState<string>('');
+  const [category, setCategory] = useState<string>("");
+  const [search, setSearch] = useState<string>("");
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [cart, setCart] = useState<Product[]>(() => {
-    const savedCart = localStorage.getItem('cart');
+    const savedCart = localStorage.getItem("cart");
     return savedCart ? JSON.parse(savedCart) : [];
   });
 
   const navigate = useNavigate();
-// all and filrter 
+  // all and filrter
   useEffect(() => {
     const fetchProducts = async () => {
-      let url = 'https://fakestoreapi.com/products';
+      let url = "https://fakestoreapi.com/products";
       if (category) {
         url = `https://fakestoreapi.com/products/category/${category}`;
       }
@@ -33,13 +33,13 @@ const Home: React.FC = () => {
         const response = await axios.get(url);
         setProducts(response.data);
       } catch (error) {
-        console.error('Error fetching products:', error);
+        console.error("Error fetching products:", error);
       }
     };
 
     fetchProducts();
   }, [category]);
-  // search 
+  // search
   useEffect(() => {
     setFilteredProducts(
       products.filter((product) =>
@@ -49,7 +49,7 @@ const Home: React.FC = () => {
   }, [search, products]);
 
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
   const handleAddToCart = (productId: number) => {
@@ -67,14 +67,18 @@ const Home: React.FC = () => {
 
   const handleCategoryChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setCategory(e.target.value);
-};
+  };
 
-const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
-};
+  };
 
   const navigateToCart = () => {
-    navigate('/cart'); 
+    navigate("/cart");
+  };
+
+  const navigateToAdd = () => {
+    navigate("/addProduct");
   };
 
   return (
@@ -82,61 +86,80 @@ const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
       <nav className="bg-gray-100">
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-16 items-center justify-between">
-            <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-
-            </div>
+            <div className="absolute inset-y-0 left-0 flex items-center sm:hidden"></div>
             <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
               <div className="flex flex-shrink-0 items-center">
-                <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" />
+                <img
+                  className="h-8 w-auto"
+                  src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                  alt="Your Company"
+                />
               </div>
-
             </div>
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-              <button onClick={navigateToCart} type="button" className="relative rounded-full p-1">
+              <button
+                onClick={navigateToCart}
+                type="button"
+                className="relative rounded-full p-1"
+              >
                 <i className="fa-solid fa-cart-shopping fa-xl"></i>
-                <span className=" bg-slate-400  cartBadge">{cart.length}</span>
-
+                <span className="bg-indigo-500 px-1 rounded-md  cartBadge">{cart.length}</span>
               </button>
 
               <div className="relative ml-10">
                 <div>
-                  <button type="button" className="relative flex rounded-full focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
-                    <img className="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+                  <button
+                    type="button"
+                    className="relative flex rounded-full focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                    id="user-menu-button"
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                  >
+                    <img
+                      className="h-8 w-8 rounded-full"
+                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                      alt=""
+                    />
                   </button>
                 </div>
-
-
-
               </div>
             </div>
           </div>
         </div>
-
-
       </nav>
       <div className="bg-white">
         <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-        <div>
-                <label>Filter by category:</label>
-                <select value={category} onChange={handleCategoryChange}>
-                    <option value="">All</option>
-                    <option value="electronics">Electronics</option>
-                    <option value="jewelery">Jewelery</option>
-                    <option value="men's clothing">Men's Clothing</option>
-                    <option value="women's clothing">Women's Clothing</option>
-                </select>
+          <div className="header flex justify-between text-center">
+            <div className="text-center">
+              <label className=" text-center ">Filter by category</label>
+              <select  className="px-10 mx-4 border-2 rounded-md text-center"  value={category} onChange={handleCategoryChange}>
+                <option value="">All</option>
+                <option value="electronics">Electronics</option>
+                <option value="jewelery">Jewelery</option>
+                <option value="men's clothing">Men's Clothing</option>
+                <option value="women's clothing">Women's Clothing</option>
+              </select>
             </div>
             <div>
-                <label>Search by title:</label>
-                <input
-                    type="text"
-                    value={search}
-                    onChange={handleSearchChange}
-                />
+              <input className="w-full px-40 border-2 rounded-md" placeholder="Search by title" type="text" value={search} onChange={handleSearchChange} />
             </div>
+          
+          </div>
+          <div className="flex justify-between items-center mt-5 ">
           <h2 className="text-2xl font-bold tracking-tight text-gray-900">
-            Customers also purchased
+            Products
           </h2>
+          <button
+              onClick={() => navigateToAdd()}
+              type="button"
+              className="mt-3 flex rounded-md border border-transparent bg-indigo-500 px-2 py-1 text-base font-medium text-white hover:bg-indigo-400"
+            >
+              Add New Product
+            </button>
+
+         
+          </div>
+        
 
           <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
             {filteredProducts.map((product) => (
